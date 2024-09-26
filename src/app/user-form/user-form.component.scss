@@ -1,0 +1,17 @@
+.full-width-table {
+    width: 100%;
+}
+
+.full-width-table thead th {
+    text-align: right;
+}
+
+.full-width-table tbody td {
+    vertical-align: middle;
+}
+
+/* Ensure table header cells align properly */
+.full-width-table th {
+    padding: 0.5rem;
+    box-sizing: border-box; /* Ensures padding is included in the width calculation */
+}

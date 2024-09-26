@@ -1,0 +1,10 @@
+.action-buttons {
+    display: flex; /* Use flexbox to align items horizontally */
+    gap: 0.5rem; /* Adjust gap between the buttons */
+    justify-content: start; /* Align the buttons to the start (left) */
+    align-items: center; /* Vertically align the buttons */
+}
+
+.mr-2 {
+    margin-right: 0.5rem; /* Ensure spacing on right side of first button (optional) */
+}

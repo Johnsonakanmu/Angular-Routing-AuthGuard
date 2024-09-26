@@ -1,0 +1,85 @@
+<div class="card">
+    <p-table
+        #dt
+        [value]="customers"
+        [(selection)]="selectedCustomers"
+        dataKey="id"
+        [rowHover]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [loading]="loading"
+        [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0"
+        [globalFilterFields]="['name', 'role', 'email', 'status']"
+    >
+        <ng-template pTemplate="caption">
+            <div class="flex justify-content-between">
+                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+
+                <div class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" [(ngModel)]="searchValue" placeholder="Keyword Search">
+                </div>
+            </div>
+        </ng-template>
+        
+        <!-- The rest of the table content remains unchanged -->
+
+        <ng-template pTemplate="body" let-customer>
+            <tr class="p-selectable-row">
+                <td>
+                    <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+                </td>
+                <td>
+                    <span class="p-column-title">Name</span>
+                    {{ customer.name }}
+                </td>
+                <td>
+                    <span class="p-column-title">Role</span>
+                    <span class="ml-1 vertical-align-middle">{{ customer.role }}</span>
+                </td>
+                <td>
+                    <span class="p-column-title">Contact Email</span>
+                    <span class="ml-1 vertical-align-middle">{{ customer.email }}</span>
+                </td>
+                <td>
+                    <span class="p-column-title">Status</span>
+                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
+                </td>
+                <td>
+                    <span class="p-column-title">Date</span>
+                    {{ customer.date | date: 'MM/dd/yyyy' }}
+                </td>
+                <td>
+                    <div class="action-buttons">
+                        <p-button icon="pi pi-pencil" class="mr-2"></p-button>
+                        <p-button icon="pi pi-lock-open" class="mr-2" label="Enable"></p-button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No customers found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<!-- Move the dialog outside of the table -->
+<p-dialog [(visible)]="customerDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="name">Name</label>
+            <input type="text" pInputText id="name" [(ngModel)]="customer.name" required autofocus/>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+    </ng-template>
+</p-dialog>
